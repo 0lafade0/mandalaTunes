@@ -5,9 +5,9 @@ import Card from 'react-bootstrap/Card';
 const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
     console.log(trackObj.artists);
     return (
-       <Card>
+        // <div className="card-container">
+       <Card style={{width: '500px', height: '500px' }}>
             <Card.Body>
-                
                 <Card.Title>{trackObj.name}</Card.Title>
                 <Card.Subtitle>{trackArtist}</Card.Subtitle>
                 <Card.Text>
@@ -27,6 +27,7 @@ const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
                 </Card.Text>
             </Card.Body>
        </Card>
+    //    </div>
     );
 }
 

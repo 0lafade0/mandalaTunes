@@ -100,7 +100,7 @@ function App() {
       </Container>
       <div className='actionArea'>
       <Container>
-        <ListGroup>
+        <ListGroup style={{width: '500px'}}>
           {tracks.map((track, i) => {
             // console.log(track);
             return (
