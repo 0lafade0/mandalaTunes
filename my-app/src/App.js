@@ -10,7 +10,7 @@ const CLIENT_SECRET = "6f92a1671c7a437f8d150807ee9ae61b";
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
-  const [albums, setAlbums] = useState([]);
+  const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
     // API call
@@ -38,23 +38,18 @@ function App() {
         'Authorization': 'Bearer ' + accessToken
       }
     }
-    var artistID = await fetch('https://api.spotify.com/v1/search?q=' + 
-      searchInput + '&type=artist', searchParameters)
-      .then(response => response.json())
-      .then(data => {return data.artists.items[0].id})
-    // get request with artist ID grab all albums from that artist
-    console.log("Artist ID is: " + artistID);
-    //display those albums to user
-    var returnedAlbums = await fetch('https://api.spotify.com/v1/artists/' + 
-      artistID + '/albums' + '?include_groups=album&market=US&limit=50', searchParameters)
-    // Get 
+    var returnedTracks = await fetch('https://api.spotify.com/v1/search?q=' + 
+      searchInput + '&type=track' + '&market=US&limit=20' , searchParameters)
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        setAlbums(data.items)
+        setTracks(data.tracks.items)
       });
+    // get request with search query to grab all tracks from search
+    //display those tracks to user
+
   }
-  console.log(albums);
+  console.log(tracks);
   return (
     <div className="App">
       <Search />
@@ -77,17 +72,18 @@ function App() {
       </Container>
       <Container>
         <Row className="mx-2 row row-cols-4">
-          {albums.map((album, i) => {
-            console.log(album);
+          {tracks.map((track, i) => {
+            console.log(track);
             return (
             <Card>
-              <Card.Img src={album.images[0].url} />
+              <Card.Img src={track.album.images[0].url} />
                 <Card.Body>
-                  <Card.Title>{album.name}</Card.Title>
+                  <Card.Title>{track.name}</Card.Title>
+                  <Card.Text>{track.artists[0].name}</Card.Text>
                 </Card.Body>
             </Card>
-            )
-          })}
+             ) 
+           })} 
         
         </Row>
        
