@@ -1,7 +1,8 @@
 import './App.css';
 import Search from './Search';
+import TrackViz from './TrackViz';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, InputGroup, FormControl, Button, Row, Card} from 'react-bootstrap';
+import { Container, InputGroup, FormControl, Button, Row, Card, ListGroup} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 
 const CLIENT_ID = "e0b4074fdb834217995fd79096a6138f";
@@ -11,6 +12,9 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [tracks, setTracks] = useState([]);
+  const [selectedTrack, setSelectedTrack] = useState("");
+  const [trackInfo, setTrackInfo] = useState("");
+  const [trackArtist, setTrackArtist] = useState("");
 
   useEffect(() => {
     // API call
@@ -26,18 +30,20 @@ function App() {
       .then(data => setAccessToken(data.access_token))
   }, [])
 
+  var searchParameters = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + accessToken
+    }
+  }
+
   // Search
   async function search() {
     console.log("Search for " + searchInput);
     // TEMP, WILL CHANGE SOON
     // Get request using serch to get artist ID
-    var searchParameters = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accessToken
-      }
-    }
+
     var returnedTracks = await fetch('https://api.spotify.com/v1/search?q=' + 
       searchInput + '&type=track' + '&market=US&limit=20' , searchParameters)
       .then(response => response.json())
@@ -49,7 +55,29 @@ function App() {
     //display those tracks to user
 
   }
-  console.log(tracks);
+  // console.log(tracks);
+
+  async function getTrackInfo(tr_id) {
+
+    var trackStuff = await fetch ('https://api.spotify.com/v1/tracks/' + 
+    tr_id, searchParameters)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setSelectedTrack(data);
+      setTrackArtist(data.artists[0].name);
+    })
+
+    var trackQualities = await fetch('https://api.spotify.com/v1/audio-features/' + 
+    tr_id, searchParameters)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setTrackInfo(data);
+    })
+
+  };
+
   return (
     <div className="App">
       <Search />
@@ -70,24 +98,28 @@ function App() {
           </Button>
         </InputGroup>
       </Container>
+      <div className='actionArea'>
       <Container>
-        <Row className="mx-2 row row-cols-4">
+        <ListGroup>
           {tracks.map((track, i) => {
-            console.log(track);
+            // console.log(track);
             return (
-            <Card>
-              <Card.Img src={track.album.images[0].url} />
-                <Card.Body>
-                  <Card.Title>{track.name}</Card.Title>
-                  <Card.Text>{track.artists[0].name}</Card.Text>
-                </Card.Body>
-            </Card>
+            <ListGroup.Item action onClick={() => getTrackInfo(track.id)}> 
+            {/* onClick, do a function to take in the curren track */}
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">{track.name}</div>
+                {track.artists[0].name}
+              </div>
+            </ListGroup.Item>
              ) 
            })} 
         
-        </Row>
-       
+        </ListGroup>
       </Container>
+      <Container>
+           <TrackViz trackObj={selectedTrack} trackInfo={trackInfo} trackArtist={trackArtist}/>
+      </Container>
+    </div>
     </div>
   );
 }
