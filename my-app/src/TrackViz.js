@@ -1,13 +1,28 @@
 import React from 'react';
 import './TrackViz.css';
 import { Card, Container } from 'react-bootstrap';
+import Spirograph from './Spirograph';
 
 const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
     console.log(trackObj.artists);
+    console.log(trackInfo.key);
     return (
         <div>
-        <Container>
-            <div></div>
+        <Container className="parent-container">
+            <Spirograph 
+                acoust={trackInfo.acousticness} 
+                dance={trackInfo.danceability} 
+                duration={trackInfo.duration_ms} 
+                energy={trackInfo.energy} 
+                instrum={trackInfo.instrumentalness}
+                key={trackInfo.key} 
+                live={trackInfo.liveness} 
+                loud={trackInfo.loudness} 
+                mode={trackInfo.mode} 
+                speech={trackInfo.speechiness} 
+                tempo={trackInfo.tempo} 
+                time_sig={trackInfo.time_signature} 
+                valence={trackInfo.valence} />
          </Container>
         <Container>
         <Card style={{width: '500px', height: '500px' }}>
