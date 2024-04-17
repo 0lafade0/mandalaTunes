@@ -80,11 +80,11 @@ function App() {
 
   return (
     <div className="App">
-      <Search />
+      <h2>Spirofy (technically it should be mandala-fy but that name sucks)</h2>
       <Container>
         <InputGroup className="mb-3" size="lg">
           <FormControl 
-            placeholder="Search for Artist"
+            placeholder="Search for Song"
             type="input"
             onKeyPress={event => {
               if (event.key == "Enter") {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './TrackViz.css';
-import { Card, Container } from 'react-bootstrap';
+import { Card, Container, Accordion } from 'react-bootstrap';
 import Spirograph from './Spirograph';
 
 const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
@@ -25,11 +25,10 @@ const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
                 valence={trackInfo.valence} />
          </Container>
         <Container>
-        <Card style={{width: '500px', height: '500px' }}>
-            <Card.Body>
-                <Card.Title>{trackObj.name}</Card.Title>
-                <Card.Subtitle>{trackArtist}</Card.Subtitle>
-                <Card.Text>
+        <Accordion style={{width: '500px', height: '500px' }}>
+            <Accordion.Item eventKey="0">
+                <Accordion.Header>{trackObj.name} <br /> {trackArtist}</Accordion.Header>
+                <Accordion.Body>
                 Acousticness: {trackInfo.acousticness} <br />
                 Danceability: {trackInfo.danceability} <br />
                 Duration_ms: {trackInfo.duration_ms} <br />
@@ -43,9 +42,9 @@ const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
                 Tempo: {trackInfo.tempo} <br />
                 Time Signature: {trackInfo.time_signature} <br />
                 Valence: {trackInfo.valence} <br />
-                </Card.Text>
-            </Card.Body>
-       </Card>
+                </Accordion.Body>
+            </Accordion.Item>
+       </Accordion>
        </Container>
     </div>
     );
