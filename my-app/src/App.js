@@ -92,6 +92,7 @@ function App() {
               }
             }}
             onChange={event => setSearchInput(event.target.value)}
+            // need an edge case for if the user doesn't enter anything
           />
           <Button onClick={search}>
             Search

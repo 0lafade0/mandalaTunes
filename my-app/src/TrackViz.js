@@ -1,12 +1,16 @@
 import React from 'react';
 import './TrackViz.css';
-import Card from 'react-bootstrap/Card';
+import { Card, Container } from 'react-bootstrap';
 
 const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
     console.log(trackObj.artists);
     return (
-        // <div className="card-container">
-       <Card style={{width: '500px', height: '500px' }}>
+        <div>
+        <Container>
+            <div></div>
+         </Container>
+        <Container>
+        <Card style={{width: '500px', height: '500px' }}>
             <Card.Body>
                 <Card.Title>{trackObj.name}</Card.Title>
                 <Card.Subtitle>{trackArtist}</Card.Subtitle>
@@ -27,7 +31,8 @@ const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
                 </Card.Text>
             </Card.Body>
        </Card>
-    //    </div>
+       </Container>
+    </div>
     );
 }
 
