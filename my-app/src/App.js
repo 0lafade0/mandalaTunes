@@ -81,6 +81,7 @@ function App() {
   return (
     <div className="App">
       <h2>Spirofy (technically it should be mandala-fy but that name sucks)</h2>
+      <h4>Take the qualities of your favorite spotify song and turn them into a Mandala! </h4>
       <Container>
         <InputGroup className="mb-3" size="lg">
           <FormControl 
