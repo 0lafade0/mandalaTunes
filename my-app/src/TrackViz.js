@@ -25,6 +25,7 @@ const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
                 valence={trackInfo.valence} />
          </Container>
         <Container>
+            {/* for sake of something to commit */}
         <Accordion style={{width: '500px'}}>
             <Accordion.Item eventKey="0">
                 <Accordion.Header>{trackObj.name} <br /> {trackArtist}</Accordion.Header>
