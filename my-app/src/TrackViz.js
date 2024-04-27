@@ -1,9 +1,11 @@
 import React from 'react';
 import './TrackViz.css';
-import { Card, Container, Accordion } from 'react-bootstrap';
+import { Card, Accordion } from 'react-bootstrap';
 import Spirograph from './Spirograph';
+import { List, ListItem, ListItemAvatar, Avatar, Container, ListItemText, ListItemButton } from '@mui/material'
 
-const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
+
+const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
     console.log(trackObj.artists);
     console.log(trackInfo.key);
     return (
@@ -26,6 +28,19 @@ const TrackViz = ({trackObj, trackInfo, trackArtist}) => {
          </Container>
         <Container>
             {/* for sake of something to commit */}
+        <List>
+            <ListItem>
+                <ListItemAvatar>
+                <Avatar sx={{ width: 56, height: 56 }} alt="Song Album Image" variant="rounded" src={trackImg} />
+                </ListItemAvatar>
+                <ListItemText>
+                <div className="ms-2 me-auto">
+                <div className="fw-bold">{trackObj.name}</div>
+                {trackArtist}
+              </div>
+                </ListItemText>
+            </ListItem>
+        </List>
         <Accordion style={{width: '500px'}}>
             <Accordion.Item eventKey="0">
                 <Accordion.Header>{trackObj.name} <br /> {trackArtist}</Accordion.Header>
