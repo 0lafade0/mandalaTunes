@@ -4,7 +4,7 @@ import { Card, //Accordion
             } from 'react-bootstrap';
 import Spirograph from './Spirograph';
 import { List, ListItem, ListItemAvatar, Avatar, Container, ListItemText, IconButton, 
-        Accordion, AccordionSummary, AccordionDetails, Typography} from '@mui/material'
+        Accordion, AccordionSummary, AccordionDetails, Typography, Tooltip} from '@mui/material'
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
@@ -132,16 +132,18 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
             <Typography>What am I looking at?</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography align='left'>
                 This song... <br/>
                 is {modeType}, so it has {strokeType} <br/>
                 {/* {trackInfo.mode == 1 ? <p>is in {timeType}/4, so the stroke is {strokeWType}px thick. </p> : <></>} */}
                 Stroke Weight: Time Signature  <br/>
                 {/* maybe we just plain text the stroke weight? i dont think people care to much here :/, 
                 like stroke weight, if there's a stroke, is based on time signature, the higher the time sig the thicker the stroke  */}
-                has {dancePerc}% danceability, so it has {layerCount} layers.<br/>
+                has {dancePerc}% danceability, so it has {layerCount} layers. it also controls hue! <br/>
                 is in the key of {keyType}, so it has {sideCount} 'sides'. like spokes on a wheel!<br/> 
                 Colors: Danceability, Energy, Valence (to add to! album ver)<br/>
+                energy corresponds to saturation<br/>
+                valence corresponds to brightness<br/>
                 is {bLoudPerc}% loud , the higher the loudeness, the higher the opacity
           </Typography>
           </AccordionDetails>
@@ -188,36 +190,6 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
           </Typography>
           </AccordionDetails>
         </Accordion>
-            {/* <Accordion.Item eventKey="0">
-                <Accordion.Header>What am I looking at?</Accordion.Header>
-                <Accordion.Body>
-                {modeType} <br/>
-                Stroke Weight: Time Signature  <br/>
-                # of Layers: Danceability<br/>
-                Types of Shape: Key <br/>
-                Colors: Danceability, Energy, Valence <br/>
-                Transparency: Loudness 
-                </Accordion.Body>
-            </Accordion.Item> */}
-            {/* <Accordion.Item eventKey="1">
-                <Accordion.Header>Pure Stats</Accordion.Header>
-                <Accordion.Body>
-                Acousticness: {trackInfo.acousticness} <br />
-                Danceability: {trackInfo.danceability} <br />
-                Duration_ms: {trackInfo.duration_ms} <br />
-                Energy: {trackInfo.energy} <br />
-                Instrumentalness: {trackInfo.instrumentalness} <br />
-                Key: {trackInfo.key} <br />
-                Liveness: {trackInfo.liveness} <br />
-                Loudness: {trackInfo.loudness} <br />
-                Mode: {trackInfo.mode} <br />
-                Speechiness: {trackInfo.speechiness} <br />
-                Tempo: {trackInfo.tempo} <br />
-                Time Signature: {trackInfo.time_signature} <br />
-                Valence: {trackInfo.valence} <br />
-                </Accordion.Body>
-            </Accordion.Item>
-       </Accordion> */}
   </Container>
   </div>
     );
