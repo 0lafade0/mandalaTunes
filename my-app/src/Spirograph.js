@@ -68,9 +68,9 @@ const Spirograph = ({ track
         let vAlph = p.round(p.map(loud,-60,0,0, 25));
         alph = p.round(p.random(bAlph - vAlph, bAlph + vAlph));
        
-          beziers = p.round(p.random(1)); //come back to this later?
+          beziers = p.round(p.random(1)); // round using something els, may test
   
-          overlap = p.round(p.random(1));
+          overlap = p.round(p.random(1)); // round using energy?
        
         for (let j = 0; j < layers; j++) {
           x1 = p.random(hSize * 0.75 - j * cush, hSize * 0.85 - j * cush);
@@ -102,7 +102,9 @@ const Spirograph = ({ track
           let sat = p.round(p.random(bSat - vSat, bSat + vSat));
           let brt = p.round(p.random(bBrt - vBrt, bBrt + vBrt));
 
-          p.fill(hue, sat, brt, alph);
+          let qualMode = [hue, sat, brt];
+
+          p.fill(qualMode, alph);
 
           for (let i = 0; i < sym / 2; i++) {
             if (strokeYN == 1) {

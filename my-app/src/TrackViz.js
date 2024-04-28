@@ -12,13 +12,63 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
     console.log(trackObj.artists);
     console.log("THIS IS THE SONG'S KEY." + trackInfo.key);
 
-    let modeType; // reformat it so that all this stuff is word slotting instead of senteces
-    let strokeType;
-    if (trackInfo.mode == 0) { //0 = minor, 1 = major
-        modeType = 'This song is minor, so it has no stroke.';
-    } else {
-        modeType = 'This song is major, so it has stroke.';
+    function scale (number, inMin, inMax, outMin, outMax) {
+        return (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     }
+
+    function percentage (number) {
+        return Math.floor(number * 100);
+    }
+
+    let modeType, strokeType, keyType, sideCount, layerCount, dancePerc, 
+        timeType, strokeWTypeNum, strokeWType, bLoudPerc;
+    
+    bLoudPerc = Math.round(scale(trackInfo.loudness,-60,0,0,100));
+    dancePerc = percentage(trackInfo.danceability);
+    layerCount = Math.round(scale(trackInfo.danceability,0,1,3,30));
+    sideCount = Math.round(scale(trackInfo.key,-1,11,8,30));
+    strokeWTypeNum = Math.round(scale(trackInfo.time_sig,3,7,1,5));
+
+    if (trackInfo.mode == 0) { //0 = minor, 1 = major
+        modeType = 'minor';
+        strokeType = 'no stroke';
+        strokeWType = '';
+    } else {
+        modeType = 'major';
+        strokeType = "a stroke.";
+        strokeWType = '';
+    }
+
+    if (trackInfo.key == 0) {
+        keyType = 'C';
+        } else if (trackInfo.key == 1) {
+            keyType = 'C♯/D♭';
+        } else if (trackInfo.key == 2) {
+            keyType = 'D';
+        } else if (trackInfo.key == 3) {
+            keyType = 'D♯/E♭';
+        } else if (trackInfo.key == 4) {
+            keyType = 'E';
+        } else if (trackInfo.key == 5) {
+            keyType = 'F';
+        } else if (trackInfo.key == 6) {
+            keyType = 'F♯/G♭';
+        } else if (trackInfo.key == 7) {
+            keyType = 'G';
+        } else if (trackInfo.key == 8) {
+            keyType = 'G♯/A♭';
+        } else if (trackInfo.key == 9) {
+            keyType = 'A';
+        } else if (trackInfo.key == 10) {
+            keyType = 'A♯/B♭';
+        } else if (trackInfo.key == 11) {
+            keyType = 'B';
+        } else if (trackInfo.key == -1) {
+            keyType = "Spotify doesn't know :(";
+        }
+    
+
+    
 
     return (
         <div className='vizSpace'>
@@ -83,12 +133,16 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-                {modeType} <br/>
+                This song... <br/>
+                is {modeType}, so it has {strokeType} <br/>
+                {/* {trackInfo.mode == 1 ? <p>is in {timeType}/4, so the stroke is {strokeWType}px thick. </p> : <></>} */}
                 Stroke Weight: Time Signature  <br/>
-                # of Layers: Danceability<br/>
-                Types of Shape: Key <br/>
-                Colors: Danceability, Energy, Valence <br/>
-                Transparency: Loudness 
+                {/* maybe we just plain text the stroke weight? i dont think people care to much here :/, 
+                like stroke weight, if there's a stroke, is based on time signature, the higher the time sig the thicker the stroke  */}
+                has {dancePerc}% danceability, so it has {layerCount} layers.<br/>
+                is in the key of {keyType}, so it has {sideCount} 'sides'. like spokes on a wheel!<br/> 
+                Colors: Danceability, Energy, Valence (to add to! album ver)<br/>
+                is {bLoudPerc}% loud , the higher the loudeness, the higher the opacity
           </Typography>
           </AccordionDetails>
         </Accordion>
@@ -97,10 +151,27 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
             expandIcon={<ArrowDropDownIcon />}
             aria-controls="panel2-content"
             id="panel2-header">
+            <Typography>Where are you getting these numbers from?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+                this is where we will explain stuff about the conversion process < br/>
+                we take qualities from spotify AI adn convert them into parameters!
+                generations are non deterministic, but still follow a guide set by the chosen song!
+                little bits of randomess in there you know the vibe.
+          </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion style={{width: '400px'}}>
+        <AccordionSummary
+            expandIcon={<ArrowDropDownIcon />}
+            aria-controls="panel3-content"
+            id="panel3-header">
             <Typography>Pure Stats (for those familiar with Spotify API)</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
+                the scale for each quality is in [brackets] <br />
                 Acousticness: {trackInfo.acousticness} <br />
                 Danceability: {trackInfo.danceability} <br />
                 Duration_ms: {trackInfo.duration_ms} <br />
