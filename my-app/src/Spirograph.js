@@ -4,13 +4,29 @@ import Sketch from 'react-p5';
 // let strokeW; //control with something?? could this be useful for time sig?
 // let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
 
-const Spirograph = ({
-    acoust, dance, duration, energy, instrum,
-    key, live, loud, mode, speech, tempo, time_sig, valence}) => {
+const Spirograph = ({ track
+    ,acoust, dance, duration, energy, instrum,
+    key, live, loud, mode, speech, tempo, time_sig, valence
+  }) => {
 
     let strokeW; //control with something?? could this be useful for time sig?
     let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
     let size = 500;
+
+    // let acoust = track.acousticness; 
+    // let dance = track.danceability;
+    // let duration = track.duration_ms;
+    // let energy = track.energy;
+    // let instrum = track.instrumentalness;
+    // let key = track.key;
+    // let live = track.liveness; 
+    // let loud = track.loudness; 
+    // let mode = track.mode; 
+    // let speech = track.speechiness;
+    // let tempo = track.tempo; 
+    // let time_sig = track.time_signature; 
+    // let valence = track.valence;
+    
 
       const setup = (p, canvasParentRef) => {
         // let size = 500;
@@ -22,9 +38,14 @@ const Spirograph = ({
 
         p.colorMode(p.HSB, 256, 100, 100, 100);
         p.noLoop();
+
+        console.log("bro what the fuck." + key);
+
       };
 
       const draw = (p) => {
+
+        console.log("songkey. please: " + track.key);
 
         p.translate(size / 2, size / 2);
         // new thing definitions
@@ -34,7 +55,9 @@ const Spirograph = ({
         p.background(0);
        
         sym = p.map(p.key,-1,11,8,30);
-        //console.log("Key: " + key);
+        // sym = 10;
+        console.log("Track Key: " + track.key);
+        console.log("Just Key: " + key);
         console.log("Sym: " + sym);
         ang = 360 / sym;
      
@@ -120,7 +143,8 @@ const Spirograph = ({
         }
       }
 
-      return <Sketch setup={setup} draw={draw} /> ;
+      return (
+      <Sketch setup={setup} draw={draw} /> );
 };
 
 export default Spirograph;

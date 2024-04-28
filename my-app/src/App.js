@@ -4,7 +4,7 @@ import TrackViz from './TrackViz';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {  InputGroup, FormControl, Button, Row, Card, ListGroup} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
-import { List, ListItem, ListItemAvatar, Avatar, Container, ListItemText, ListItemButton } from '@mui/material'
+import { List, ListItem, ListItemAvatar, Avatar, Container, ListItemText, ListItemButton, ListSubheader } from '@mui/material'
 
 
 const CLIENT_ID = "e0b4074fdb834217995fd79096a6138f";
@@ -86,6 +86,7 @@ function App() {
     <div className="App">
       <h2>Spirofy (technically it should be mandala-fy but that name sucks)</h2>
       <h4>Take the qualities of your favorite spotify song and turn them into a Mandala! </h4>
+      
       <Container> 
       {/* We keep this as a bootstrap thing i dont wanna have to figure this out */}
         <InputGroup className="mb-3" size="lg">
@@ -106,15 +107,18 @@ function App() {
         </InputGroup>
       </Container>
       <div className='actionArea'>
-      <Container>
-        <List style={{width: '500px'}}>
+      <Container disableGutters="true" sx={{ ml: '24px', position: 'relative',
+        overflow: 'auto', maxHeight: '500px'}}>
+        <List sx={{width: '500px'}}>
+          <ListSubheader>Possible matches (scroll for more!):</ListSubheader>
           {tracks.map((track, i) => {
             console.log(track);
             return (
             <ListItemButton onClick={() => getTrackInfo(track.id)}> 
             {/* onClick, do a function to take in the curren track */}
               <ListItemAvatar>
-                <Avatar sx={{ width: 56, height: 56 }} alt="Song Album Image" variant="rounded" src={track.album.images[0].url} />
+                <Avatar sx={{ width: 56, height: 56 }} alt="Song Album Image" 
+                              variant="rounded" src={track.album.images[0].url} />
               </ListItemAvatar>
               <ListItemText>
               <div className="ms-2 me-auto">
@@ -128,9 +132,21 @@ function App() {
         
         </List>
       </Container>
-      <Container>
+      <Container disableGutters="true">
            <TrackViz trackObj={selectedTrack} trackInfo={trackInfo} trackArtist={trackArtist} trackImg={trackImg}/>
+          
       </Container>
+      {/* <Container disableGutters="true" sx={{ mr: '24px'}}>
+        <Card>
+        <Card.Body>
+          <Card.Title>Card Title</Card.Title>
+            <Card.Text>
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </Card.Text>
+        </Card.Body>
+        </Card>
+      </Container> */}
     </div>
     </div>
   );

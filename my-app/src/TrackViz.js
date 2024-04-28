@@ -7,11 +7,13 @@ import { List, ListItem, ListItemAvatar, Avatar, Container, ListItemText, ListIt
 
 const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
     console.log(trackObj.artists);
-    console.log(trackInfo.key);
+    console.log("THIS IS THE SONG'S KEY." + trackInfo.key);
     return (
-        <div>
-        <Container className="parent-container">
+        <div className='vizSpace'>
+        <div className="parent-container">
+        <Container >
             <Spirograph 
+                track={trackInfo}
                 acoust={trackInfo.acousticness} 
                 dance={trackInfo.danceability} 
                 duration={trackInfo.duration_ms} 
@@ -24,7 +26,8 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
                 speech={trackInfo.speechiness} 
                 tempo={trackInfo.tempo} 
                 time_sig={trackInfo.time_signature} 
-                valence={trackInfo.valence} />
+                valence={trackInfo.valence} 
+            />
          </Container>
         <Container>
             {/* for sake of something to commit */}
@@ -41,7 +44,20 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
                 </ListItemText>
             </ListItem>
         </List>
-        <Accordion style={{width: '500px'}}>
+        
+       </Container>
+    </div>
+    <Container disableGutters="true" sx={{ mr: '24px', width: '400px'}}>
+    <Card>
+    <Card.Body>
+      <Card.Title>Card Title</Card.Title>
+        <Card.Text>
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </Card.Text>
+    </Card.Body>
+    </Card>
+    <Accordion style={{width: '400px'}}>
             <Accordion.Item eventKey="0">
                 <Accordion.Header>{trackObj.name} <br /> {trackArtist}</Accordion.Header>
                 <Accordion.Body>
@@ -72,8 +88,8 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
                 </Accordion.Body>
             </Accordion.Item>
        </Accordion>
-       </Container>
-    </div>
+  </Container>
+  </div>
     );
 }
 

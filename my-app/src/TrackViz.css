@@ -9,4 +9,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+  }
+
+  .vizSpace {
+    display: flex;
+    flex-direction: row;
   }
