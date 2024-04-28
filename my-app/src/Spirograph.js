@@ -5,27 +5,27 @@ import Sketch from 'react-p5';
 // let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
 
 const Spirograph = ({ track
-    ,acoust, dance, duration, energy, instrum,
-    key, live, loud, mode, speech, tempo, time_sig, valence
+    // ,acoust, dance, duration, energy, instrum,
+    // key, live, loud, mode, speech, tempo, time_sig, valence
   }) => {
 
     let strokeW; //control with something?? could this be useful for time sig?
     let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
     let size = 500;
 
-    // let acoust = track.acousticness; 
-    // let dance = track.danceability;
-    // let duration = track.duration_ms;
-    // let energy = track.energy;
-    // let instrum = track.instrumentalness;
+    let acoust = track.acousticness; 
+    let dance = track.danceability;
+    let duration = track.duration_ms;
+    let energy = track.energy;
+    let instrum = track.instrumentalness;
     let songKey = track.key;
-    // let live = track.liveness; 
-    // let loud = track.loudness; 
-    // let mode = track.mode; 
-    // let speech = track.speechiness;
-    // let tempo = track.tempo; 
-    // let time_sig = track.time_signature; 
-    // let valence = track.valence;
+    let live = track.liveness; 
+    let loud = track.loudness; 
+    let mode = track.mode; 
+    let speech = track.speechiness;
+    let tempo = track.tempo; 
+    let time_sig = track.time_signature; 
+    let valence = track.valence;
     
 
       const setup = (p, canvasParentRef) => {
@@ -39,7 +39,7 @@ const Spirograph = ({ track
         p.colorMode(p.HSB, 256, 100, 100, 100);
         p.noLoop();
 
-        console.log("bro what the fuck." + key);
+        // console.log("bro what the fuck." + key);
 
       };
 
@@ -54,10 +54,10 @@ const Spirograph = ({ track
 
         p.background(0);
        
-        sym = p.map(songKey,-1,11,8,30);
+        sym = p.round(p.map(songKey,-1,11,8,30));
         // sym = 10;
         console.log("Track Key: " + track.key);
-        console.log("Just Key: " + key);
+        // console.log("Just Key: " + key);
         console.log("Sym: " + sym);
         ang = 360 / sym;
      
