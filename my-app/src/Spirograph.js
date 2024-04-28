@@ -18,7 +18,7 @@ const Spirograph = ({ track
     // let duration = track.duration_ms;
     // let energy = track.energy;
     // let instrum = track.instrumentalness;
-    // let key = track.key;
+    let songKey = track.key;
     // let live = track.liveness; 
     // let loud = track.loudness; 
     // let mode = track.mode; 
@@ -54,7 +54,7 @@ const Spirograph = ({ track
 
         p.background(0);
        
-        sym = p.map(p.key,-1,11,8,30);
+        sym = p.map(songKey,-1,11,8,30);
         // sym = 10;
         console.log("Track Key: " + track.key);
         console.log("Just Key: " + key);
