@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Sketch from 'react-p5';
+import { prominent } from 'color.js';
 
 // let strokeW; //control with something?? could this be useful for time sig?
 // let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
@@ -27,6 +28,7 @@ const Spirograph = ({ track
     let time_sig = track.time_signature; 
     let valence = track.valence;
     
+    const [imgColors, setImgColors] = useState([]);
 
       const setup = (p, canvasParentRef) => {
         // let size = 500;
@@ -52,6 +54,8 @@ const Spirograph = ({ track
         strokeW = p.round(p.map(time_sig,3,7,1,5));
         strokeYN = mode;
 
+        
+
         p.background(0);
        
         sym = p.round(p.map(songKey,-1,11,8,30));
@@ -64,13 +68,15 @@ const Spirograph = ({ track
         layers = p.round(p.map(dance,0,1,3,30));
         cush = (hSize / layers) * 0.9;
   
-        let bAlph = p.round(p.map(loud,-60,0,25, 100));
-        let vAlph = p.round(p.map(loud,-60,0,0, 25));
+        let bAlph = p.round(p.map(acoust,0,1,100, 35));
+        console.log('acoust: '+ acoust);
+        console.log('bAlph: '+ bAlph);
+        let vAlph = 0;//p.round(p.map(acoust,0,1,15, 0));
         alph = p.round(p.random(bAlph - vAlph, bAlph + vAlph));
-       
-          beziers = p.round(p.random(1)); // round using something els, may test
+        console.log('alph: ' + alph);
+          beziers = 1; // round using something els, may test
   
-          overlap = p.round(p.random(1)); // round using energy?
+          overlap = 1; // round using energy? 1  = more overlap, 0 = less overlap
        
         for (let j = 0; j < layers; j++) {
           x1 = p.random(hSize * 0.75 - j * cush, hSize * 0.85 - j * cush);
@@ -102,9 +108,7 @@ const Spirograph = ({ track
           let sat = p.round(p.random(bSat - vSat, bSat + vSat));
           let brt = p.round(p.random(bBrt - vBrt, bBrt + vBrt));
 
-          let qualMode = [hue, sat, brt];
-
-          p.fill(qualMode, alph);
+          p.fill(hue, sat, brt, alph);
 
           for (let i = 0; i < sym / 2; i++) {
             if (strokeYN == 1) {
@@ -132,7 +136,7 @@ const Spirograph = ({ track
               p.curveVertex(x2, 0);
               p.endShape();
               if (strokeYN == 1) {
-                p.stroke(hue, sat, brt, alph);
+                p.fill(hue, sat, brt, alph);
                 p.line(x1, 0, x2, 0);
               }
             } else {

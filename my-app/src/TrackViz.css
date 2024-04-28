@@ -17,3 +17,7 @@
     flex-direction: row;
     align-items: start;
   }
+
+  ul.dataList {
+    list-style-type: square;
+  }
