@@ -80,8 +80,8 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
 
     return (
         <div className='vizSpace'>
-        <div className="parent-container">
-        <Container >
+        <div className="vizContainer" style={{ paddingTop: '5px', backgroundColor: 'black'}}>
+        <Container disableGutters="true" >
             <Spirograph 
                 track={trackInfo}
                 //why cant i get rid of you. bitch
@@ -101,31 +101,15 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
                 valence={trackInfo.valence} 
             />
          </Container>
-        <Container>
-            {/* for sake of something to commit */}
-        {/* <List>
-            <ListItem secondaryAction={
-                    <IconButton edge="end" aria-label="play" size="large">
-                      <PlayCircleOutlineIcon fontSize="large" />
-                    </IconButton>
-                  }>
-                <ListItemAvatar>
-                <Avatar sx={{ width: 56, height: 56 }} alt="Song Album Image" variant="rounded" src={trackImg} />
-                </ListItemAvatar>
-                <ListItemText >
-                <div className="ms-2 me-auto">
-                <div className="fw-bold">{trackObj.name}</div>
-                {trackArtist}
-                </div>
-                </ListItemText>
-            </ListItem>
-        </List> */}
-        <TrackLabel trackObj={trackObj} trackArtist={trackArtist} trackImg={trackImg}/>
+        <Container disableGutters="true">
+            
+        
+        <TrackLabel style={{padding: '0px'}} trackObj={trackObj} trackArtist={trackArtist} trackImg={trackImg}/>
         
        </Container>
     </div>
-    <Container disableGutters="true" sx={{ mr: '24px', width: '400px'}}>
-    <Card>
+    <Container disableGutters="true" sx={{ mr: '24px', width: '405px', marginLeft: '10px', padding: '0px'}} className='dataDisplay'>
+    {/* <Card>
     <Card.Body>
       <Card.Title>Card Title</Card.Title>
         <Card.Text>
@@ -133,10 +117,10 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
           bulk of the card's content.
         </Card.Text>
     </Card.Body>
-    </Card>
-    <Accordion style={{width: '400px'}}>
-        <AccordionSummary
-            expandIcon={<ArrowDropDownIcon />}
+    </Card> */}
+    <Accordion style={{width: '400px', backgroundColor: '#111111', color: 'white'}}>
+        <AccordionSummary sx={{color: 'white'}}
+            expandIcon={<ArrowDropDownIcon sx={{color: 'white'}} />}
             aria-controls="panel1-content"
             id="panel1-header">
             <Typography>What am I looking at?</Typography>
@@ -192,28 +176,31 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
           </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion style={{width: '400px'}}>
-        <AccordionSummary
-            expandIcon={<ArrowDropDownIcon />}
+        <Accordion style={{width: '400px', backgroundColor: '#111111', color: 'white'}}>
+        <AccordionSummary sx={{color: 'white'}}
+            expandIcon={<ArrowDropDownIcon sx={{color: 'white'}} />}
             aria-controls="panel2-content"
             id="panel2-header">
             <Typography>Where are you getting these numbers from?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-                this is where we will explain stuff about the conversion process < br/>
-                we take qualities from spotify AI adn convert them into parameters!
-                generations are non deterministic, but still follow a guide set by the chosen song!
-                little bits of randomess in there you know the vibe.
+                <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>
+          <a href="https://developer.spotify.com/documentation/web-api/reference/get-audio-features" target="_blank">Spotify's API</a>
+          </span>! Each track is given various qualities in the form of a number. 
+                We've taken those numbers and interpretted them as different parameters for mandala generation. 
+                Some are straightforward (brightness, saturation, and translucency are fairly one to one),
+                while others we had to get a little creative (the key is logged as a number internally with music notation,
+                 at that number is mapped to another range in order to calculate the number of sides.) It's mostly just math.
           </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion style={{width: '400px'}}>
-        <AccordionSummary
-            expandIcon={<ArrowDropDownIcon />}
+        <Accordion style={{width: '400px', backgroundColor: '#111111', color: 'white'}}>
+        <AccordionSummary sx={{color: 'white'}}
+            expandIcon={<ArrowDropDownIcon sx={{color: 'white'}} />}
             aria-controls="panel3-content"
             id="panel3-header">
-            <Typography>Pure Stats (for those familiar with Spotify API)</Typography>
+            <Typography>Pure API Stats (for nerds/those familiar)</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

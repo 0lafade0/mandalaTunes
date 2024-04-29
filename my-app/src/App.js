@@ -7,6 +7,7 @@ import {useState, useEffect} from 'react';
 import { List, ListItem, ListItemAvatar, Avatar, Container, ListItemText, 
          ListItemButton, ListSubheader, Typography, Tooltip, ToggleButton, 
          ToggleButtonGroup, Stack } from '@mui/material'
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import TrackLabel from './TrackLabel';
 import Spirograph from './Spirograph';
 import ComparisonData from './ComparisonData';
@@ -146,8 +147,12 @@ function App() {
 
   return (
     <div className="App">
-      <Typography variant="h4">MandalaTunes</Typography>
-      <Typography variant="subtitle1">Take the qualities of your favorite spotify 
+      {/* <div className='titleTop'> */}
+      <Container disableGutters='true' className='titleTop' sx={{marginTop: '10px', width: '200px', paddingRight:'5px', paddingTop: '5px', paddingBottom: '5px'}}>
+      <Typography variant="h5"  align='center'><MusicNoteIcon fontSize='medium' />MandalaTunes{'  '}</Typography>
+      </Container>
+      {/* </div> */}
+      <Typography variant="subtitle1" color='white'>Take the qualities of your favorite spotify 
       song and turn them into a <Tooltip title="Don't know what this is? Give it a click!">
         <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>
           <a href="https://www.google.com/search?client=firefox-b-1-d&q=mandala" target="_blank">mandala</a>
@@ -159,9 +164,10 @@ function App() {
       {/* We keep this as a bootstrap thing i dont wanna have to figure this out */}
       <Stack direction="row" spacing={2}>
         <InputGroup className="mb-3" size="lg">
-          <FormControl 
+          <FormControl className='searchBar'
             placeholder="Search for Song"
             type="input"
+            // style={{backgroundColor: '#242424'}}
             onKeyPress={event => {
               if (event.key == "Enter") {
                 search();
@@ -181,11 +187,11 @@ function App() {
       </Container>
       <div className='actionArea'>
       <Container disableGutters="true" sx={{ ml: '0px', position: 'relative',
-        overflow: 'auto', maxHeight: '500px', '& ul': { padding: 0 }}}>
-        <List sx={{width: '500px'}} subheader={<li />}>
+        overflow: 'auto', maxHeight: '500px', '& ul': { padding: 0 }}} className='searchResults'>
+        <List sx={{width: '500px'}} subheader={<li />} >
         <li>
             <ul>
-          <ListSubheader sx={{ position: 'sticky', top: '0', zIndex: '1000' }}>Possible matches (scroll for more!):</ListSubheader>
+          <ListSubheader sx={{ position: 'sticky', top: '0', zIndex: '1000', backgroundColor: '#2a2a2a', color: 'white' }}>Possible matches (scroll for more!):</ListSubheader>
           {tracks.map((track, i) => {
             console.log(track);
             return (
@@ -197,8 +203,8 @@ function App() {
               </ListItemAvatar>
               <ListItemText>
               <div className="ms-2 me-auto">
-                <div className="fw-bold">{track.name}</div>
-                {track.artists[0].name}
+                <div className="fw-bold" >{track.name}</div>
+                <div style={{color: '#8B8B8B'}}>{track.artists[0].name}</div>
               </div>
               </ListItemText>
             </ListItemButton>
@@ -209,7 +215,7 @@ function App() {
           </li>
         </List>
       </Container>
-      <Container disableGutters="true">
+      <Container disableGutters="true" className='displayPort'>
            <TrackViz trackObj={selectedTrack} trackInfo={trackInfo} trackArtist={trackArtist} trackImg={trackImg}/>
       </Container>
       </div>
@@ -242,8 +248,41 @@ function App() {
                 exclusive
                 onChange={handleWhich}
                 aria-label="Track Choice">
-                <ToggleButton value="Song 1">Song 1</ToggleButton>
-                <ToggleButton value="Song 2">Song 2</ToggleButton>
+                <ToggleButton value="Song 1"
+                sx={{
+                  backgroundColor: '#2A2A2A', // Background color when button is not selected
+                  color: '#ffffff', // Text color when button is not selected
+                  '&:hover': {
+                    backgroundColor: '#64b5f6', // Background color on hover
+                  },
+                  '&.Mui-selected': {
+                      backgroundColor: '#F6F6F6', // Background color when button is selected
+                      color: '#000000', // Text color when button is selected
+                      '&:hover': {
+                        backgroundColor: '#64b5f6', // Background color on hover
+                      },
+                  },
+                }}
+                
+                >Song 1</ToggleButton>
+                <ToggleButton value="Song 2"
+                
+                sx={{
+                  backgroundColor: '#2A2A2A', // Background color when button is not selected
+                  color: '#ffffff', // Text color when button is not selected
+                  '&:hover': {
+                    backgroundColor: '#64b5f6', // Background color on hover
+                  },
+                  '&.Mui-selected': {
+                      backgroundColor: '#F6F6F6', // Background color when button is selected
+                      color: '#000000', // Text color when button is selected
+                      '&:hover': {
+                        backgroundColor: '#64b5f6', // Background color on hover
+                      },
+                  },
+                }}
+                
+                >Song 2</ToggleButton>
               </ToggleButtonGroup>
               <Button onClick={changeView} style={{width: '200px', height: '48px', margin: 0}}>
                 Single Analysis
@@ -253,8 +292,9 @@ function App() {
            
             </div>
             <div className='compSong'>
-              <Container disableGutters="true" sx={{width: '30%'}}>
-                <Spirograph 
+              
+              <Container disableGutters="true" sx={{width: '455px', paddingTop: '5px', backgroundColor: 'black'}} className='compSongreal'>
+                <Spirograph style={{padding: '0px', marginTop:'10px', borderStyle: 'solid', borderWeight: '3px'}}
                     track={trackInfo1} 
                     disSize={450} 
                     acoust={trackInfo1.acousticness} 
@@ -273,16 +313,17 @@ function App() {
                   />
                 <TrackLabel trackObj={selectedTrack1} trackArtist={trackArtist1} trackImg={trackImg1} />
               </Container>
-             <div>
+              
+             <div className='searchNData'>
              <ComparisonData trackObj1={selectedTrack1} trackInfo1={trackInfo1} trackObj2={selectedTrack2} trackInfo2={trackInfo2}/>
 
-              <Container disableGutters="true" sx={{ ml: '24px', position: 'realtive',
-                overflow: 'auto', maxHeight: '500px', marginTop: '20px', '& ul': { padding: 0 }}}>
+              <Container disableGutters="true" sx={{ ml: '24px',mr: '24px', position: 'realtive', width: '500px',
+                overflow: 'auto', maxHeight: '500px', marginTop: '20px', '& ul': { padding: 0 }}} className='searchResults'>
                    {/* <Container sx={{marginTop: '5px', marginBottom: '5px', position: 'sticky'}}>Possible matches (scroll for more!):</Container> */}
                 <List sx={{width: '500px'}}  subheader={<li />}>
                   <li>
                     <ul>
-                  <ListSubheader sx={{ position: 'sticky', top: '0', zIndex: '1000' }}>Possible matches (scroll for more!):</ListSubheader>
+                  <ListSubheader sx={{textAlign: 'center', backgroundColor: '#2a2a2a', color: 'white' }}>Possible matches (scroll for more!):</ListSubheader>
                   {tracks.map((track, i) => {
                     console.log(track);
                     return (
@@ -295,7 +336,7 @@ function App() {
                       <ListItemText>
                       <div className="ms-2 me-auto">
                         <div className="fw-bold">{track.name}</div>
-                        {track.artists[0].name}
+                        <div style={{color: '#8B8B8B'}}>{track.artists[0].name}</div>
                       </div>
                       </ListItemText>
                     </ListItemButton>
@@ -309,8 +350,8 @@ function App() {
                 
               </Container>
               </div>
-              <Container disableGutters="true" sx={{width: '30%'}}> 
-                  <Spirograph 
+              <Container disableGutters="true" sx={{width: '455px', paddingTop: '5px', backgroundColor: 'black'}} className='compSongreal'> 
+                  <Spirograph style={{padding: '0px', margin: '0px'}}
                     track={trackInfo2} 
                     disSize={450} 
                     acoust={trackInfo2.acousticness} 

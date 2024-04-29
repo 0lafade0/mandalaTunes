@@ -12,7 +12,8 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         modeType2, strokeType2, keyType2, sideCount2, layerCount2, dancePerc2, 
         timeType2, strokeWTypeNum2, strokeWType2, acoustPerc2, enerPerc2, valPerc2,
         song1name, song2name,
-        compDance, compLayers, compAcoust, compEnergy, compVal, compKey, compSides, compStroke, compTime;
+        compDance, compLayers, compAcoust, compEnergy, compVal, compKey, 
+        compSides, compStroke, compTime, compMode1, compMode2;
 
         //for comp mode, just like vs unlike
 
@@ -185,28 +186,60 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         compTime = "a 'lower'";
     }
 
+    // apple pie a la mode
+    if (trackInfo1.mode == 0) {
+        compMode1 = 'a minor';
+    } else if (trackInfo1.mode == 1) {
+        compMode1 = 'a major';
+    }
+
+    if (trackInfo1.mode == trackInfo2.mode) {
+        compMode2 = 'just like';
+    } else {
+        compMode2 = 'unlike';
+    }
+
     return (
-        <div className='searchNComp'>this is the the comparion will go!
-        <Accordion sx={{width: '500px', margin: 'auto'}}>
-        <AccordionSummary
-            expandIcon={<ArrowDropDownIcon />}
+        <div className='searchNComp'>
+        <Accordion sx={{width: '500px', margin: 'auto', backgroundColor: '#111111', color: 'white'}}>
+        <AccordionSummary sx={{color: 'white'}}
+            expandIcon={<ArrowDropDownIcon sx={{color: 'white'}}/>}
             aria-controls="panel1c"
             id="panel1h">
-            <Typography>Gimmie that data!</Typography>
+            <Typography>Tell me more!</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <Typography align='left' sx={{marginBottom: 0}}>
             <b>{song1name} has... </b>
             <ul className='dataList'>
-                <li> {compTime} time signature ({trackInfo1.time_signature}/4 vs. {trackInfo2.time_signature}/4) </li>
+                <li> {compMode1} mode {compMode2} {song2name} <Typography display='inline' variant='overline'><span className='aspect'>stroke visibility</span></Typography>  </li>
+                <li> {compTime} time signature ({trackInfo1.time_signature}/4 vs. {trackInfo2.time_signature}/4) <Typography display='inline' variant='overline'><span className='aspect'>stroke weight</span></Typography> </li>
                 {/* tooltip about the time sig equaling stroke */}
-                <li> {compSides} sides ({sideCount1} vs. {sideCount2}) </li>
-                <li> {compLayers} layers ({layerCount1} vs. {layerCount2}) </li>
-                <li> {compKey} key ({keyType1} vs. {keyType2}) </li> 
-                <li> {compDance} danceability ({dancePerc1}% vs. {dancePerc2}%) </li>
-                <li> {compEnergy} energy ({enerPerc1}% vs. {enerPerc2}%)</li>
-                <li> {compVal} valence ({valPerc1}% vs. {valPerc2}%)</li>
-                <li> {compAcoust} acousticness ({acoustPerc1}% vs. {acoustPerc2}%) </li>
+                <li> {compKey} key ({keyType1} vs. {keyType2}) <Typography display='inline' variant='overline'><span className='aspect'>sides</span></Typography> </li> 
+                <li> {compSides} <Tooltip title="Think of it like a wheel. The number of spokes the wheel has is what this number visualizes!">
+                        <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>'sides'</span>
+                    </Tooltip> ({sideCount1} vs. {sideCount2}) <Typography display='inline' variant='overline'><span className='feature'>key</span></Typography> </li>
+                {/* badge type neat for quality instead of aspect */}
+                <li> {compLayers} layers ({layerCount1} vs. {layerCount2}) <Typography display='inline' variant='overline'><span className='feature'>danceability</span></Typography></li>
+                
+                <li> {compDance} <Tooltip title="How suitable a track is for dancing based on a 
+                                    combination of tempo, 
+                                    rhythm stability, beat strength, and overall regularity.">
+                        <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>danceability</span>
+                    </Tooltip> ({dancePerc1}% vs. {dancePerc2}%) <Typography display='inline' variant='overline'><span className='aspect'>layers</span></Typography> 
+                    <Typography display='inline' variant='overline'><span className='aspect' style={{marginLeft: '5px'}}>hue</span></Typography> </li>
+                    {/* turn bracket info into a badge type beat */}
+                <li> {compEnergy} <Tooltip title="Represents a perceptual measure of intensity and activity. 
+                                    Typically, energetic tracks feel fast, loud, and noisy.">
+                        <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>energy</span>
+                    </Tooltip> ({enerPerc1}% vs. {enerPerc2}%) <Typography display='inline' variant='overline'><span className='aspect'>saturation</span></Typography></li>
+                <li> {compVal} <Tooltip title="The musical 'positiveness' conveyed by a track. Tracks with high valence sound more positive 
+                                    , while tracks with low valence sound more negative.">
+                        <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>valence</span>
+                    </Tooltip> ({valPerc1}% vs. {valPerc2}%) <Typography display='inline' variant='overline'><span className='aspect'>brightness</span></Typography></li>
+                <li> {compAcoust} <Tooltip title="A confidence measure of whether the track is acoustic. The higher the acousticness, the higher the translucency.">
+                        <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>acousticness</span>
+                    </Tooltip> ({acoustPerc1}% vs. {acoustPerc2}%) <Typography display='inline' variant='overline'><span className='aspect'>translucency</span></Typography> </li>
                 {/* yeah we should stilll tool tip the spotify api shit */}
             </ul>
           </Typography>
