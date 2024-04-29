@@ -5,14 +5,15 @@ import { prominent } from 'color.js';
 // let strokeW; //control with something?? could this be useful for time sig?
 // let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
 
-const Spirograph = ({ track
+const Spirograph = ({ track, disSize
     // ,acoust, dance, duration, energy, instrum,
     // key, live, loud, mode, speech, tempo, time_sig, valence
   }) => {
 
     let strokeW; //control with something?? could this be useful for time sig?
     let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
-    let size = 500;
+    // let size = 500;
+    let size = disSize;
 
     let acoust = track.acousticness; 
     let dance = track.danceability;
@@ -55,13 +56,11 @@ const Spirograph = ({ track
         strokeYN = mode;
 
         
-
         p.background(0);
        
         sym = p.round(p.map(songKey,-1,11,8,30));
         // sym = 10;
         console.log("Track Key: " + track.key);
-        // console.log("Just Key: " + key);
         console.log("Sym: " + sym);
         ang = 360 / sym;
      
