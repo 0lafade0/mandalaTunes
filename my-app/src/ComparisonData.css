@@ -1,0 +1,11 @@
+.searchNComp {
+    display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+ul.dataList {
+    list-style-type: square;
+    margin-bottom: 0;
+    margin-top: 0;
+  }

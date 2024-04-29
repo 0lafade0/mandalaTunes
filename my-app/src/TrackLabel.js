@@ -1,15 +1,19 @@
 import React from 'react';
 import './TrackLabel.css';
 import { List, ListItem, ListItemAvatar, Avatar, Container, ListItemText, IconButton, 
-    Accordion, AccordionSummary, AccordionDetails, Typography, Tooltip} from '@mui/material'
+    Accordion, AccordionSummary, AccordionDetails, Typography, Tooltip} from '@mui/material';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
 const TrackLabel = ({trackObj, trackArtist, trackImg}) => {
 
+    if (!trackObj) {
+        return <div>No track selected</div>;
+      }
+
     return (
         <List>
-            <Tooltip title="in an ideal world this would play the full track. however i don't want to 
-            pay for premuim (and the 30 second preview didnt feel worth it) so energy went towards other things">
+            <Tooltip title="In an ideal world this would play the full track. However i don't want to 
+            pay for premuim (and the 30 second preview didnt feel worth it).">
             <ListItem secondaryAction={
                     <IconButton edge="end" aria-label="play" size="large">
                       <PlayCircleOutlineIcon fontSize="large" />

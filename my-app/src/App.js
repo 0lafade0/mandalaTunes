@@ -9,6 +9,7 @@ import { List, ListItem, ListItemAvatar, Avatar, Container, ListItemText,
          ToggleButtonGroup, Stack } from '@mui/material'
 import TrackLabel from './TrackLabel';
 import Spirograph from './Spirograph';
+import ComparisonData from './ComparisonData';
 
 
 const CLIENT_ID = "e0b4074fdb834217995fd79096a6138f";
@@ -132,11 +133,11 @@ function App() {
 
 
   const handleWhich = (event, newWhich) => {
+    if (newWhich !== null) {
     setWhichTrack(newWhich);
     console.log("Which Song is it babe: " + whichTrack);
     console.log("These should be the same? WhichTrack " + whichTrack + ' newWhich: ' + newWhich);
-    selectingSong1 = !selectingSong1
-    //okay right i think it just needs to actually execute the function? this makes sense
+    }    //okay right i think it just needs to actually execute the function? this makes sense
     //please dont fuck up later
   };
 
@@ -156,6 +157,7 @@ function App() {
       <div className={(compareActive) ? 'hideView' : ''}>
       <Container> 
       {/* We keep this as a bootstrap thing i dont wanna have to figure this out */}
+      <Stack direction="row" spacing={2}>
         <InputGroup className="mb-3" size="lg">
           <FormControl 
             placeholder="Search for Song"
@@ -172,15 +174,18 @@ function App() {
             Search
           </Button>
         </InputGroup>
-        <Button onClick={changeView}>
+        <Button onClick={changeView} style={{width: '200px', height: '48px'}}>
           Compare Tracks
         </Button>
+        </Stack>
       </Container>
       <div className='actionArea'>
-      <Container disableGutters="true" sx={{ ml: '24px', position: 'relative',
-        overflow: 'auto', maxHeight: '500px'}}>
-        <List sx={{width: '500px'}}>
-          <ListSubheader>Possible matches (scroll for more!):</ListSubheader>
+      <Container disableGutters="true" sx={{ ml: '0px', position: 'relative',
+        overflow: 'auto', maxHeight: '500px', '& ul': { padding: 0 }}}>
+        <List sx={{width: '500px'}} subheader={<li />}>
+        <li>
+            <ul>
+          <ListSubheader sx={{ position: 'sticky', top: '0', zIndex: '1000' }}>Possible matches (scroll for more!):</ListSubheader>
           {tracks.map((track, i) => {
             console.log(track);
             return (
@@ -197,9 +202,11 @@ function App() {
               </div>
               </ListItemText>
             </ListItemButton>
-             ) 
-           })} 
-        
+            ) 
+            
+          })} 
+          </ul>
+          </li>
         </List>
       </Container>
       <Container disableGutters="true">
@@ -208,19 +215,12 @@ function App() {
       </div>
 
     </div>
-      <div className={(compareActive) ? '' : 'hideView'}> This should ONLY appear when show single song is false.
+      <div className={(compareActive) ? '' : 'hideView'}> 
            <div className='searchNToggle'>
            
             <Container disableGutters="true" >
             <Stack direction="row" spacing={2}>
               <InputGroup className="mb-3 d-flex justify-content-start" size="lg">
-                {/* <DropdownButton
-                  variant="outline-secondary"
-                  title="Dropdown"
-                  id="input-group-dropdown-1">
-                  <Dropdown.Item href="#">Song 1</Dropdown.Item>
-                  <Dropdown.Item href="#">Song 2</Dropdown.Item>
-                </DropdownButton> */}
                 <FormControl 
                   placeholder={"Search for Songs" }
                   type="input"
@@ -236,7 +236,7 @@ function App() {
                   Search
                 </Button>
               </InputGroup>
-              <ToggleButtonGroup sx={{width: '200px', height: '48px'}}
+              <ToggleButtonGroup sx={{width: '250px', height: '48px', margin: 0}}
                 color="primary"
                 value={whichTrack}
                 exclusive
@@ -245,8 +245,8 @@ function App() {
                 <ToggleButton value="Song 1">Song 1</ToggleButton>
                 <ToggleButton value="Song 2">Song 2</ToggleButton>
               </ToggleButtonGroup>
-              <Button onClick={changeView}>
-                Compare Tracks
+              <Button onClick={changeView} style={{width: '200px', height: '48px', margin: 0}}>
+                Single Analysis
               </Button>
               </Stack>
             </Container>
@@ -254,7 +254,6 @@ function App() {
             </div>
             <div className='compSong'>
               <Container disableGutters="true" sx={{width: '30%'}}>
-                Song 1??
                 <Spirograph 
                     track={trackInfo1} 
                     disSize={450} 
@@ -274,10 +273,16 @@ function App() {
                   />
                 <TrackLabel trackObj={selectedTrack1} trackArtist={trackArtist1} trackImg={trackImg1} />
               </Container>
-              <Container disableGutters="true" sx={{ ml: '24px', position: 'relative',
-                overflow: 'auto', maxHeight: '500px', width: '25%'}}>
-                <List sx={{width: '500px'}}>
-                  <ListSubheader>Possible matches (scroll for more!):</ListSubheader>
+             <div>
+             <ComparisonData trackObj1={selectedTrack1} trackInfo1={trackInfo1} trackObj2={selectedTrack2} trackInfo2={trackInfo2}/>
+
+              <Container disableGutters="true" sx={{ ml: '24px', position: 'realtive',
+                overflow: 'auto', maxHeight: '500px', marginTop: '20px', '& ul': { padding: 0 }}}>
+                   {/* <Container sx={{marginTop: '5px', marginBottom: '5px', position: 'sticky'}}>Possible matches (scroll for more!):</Container> */}
+                <List sx={{width: '500px'}}  subheader={<li />}>
+                  <li>
+                    <ul>
+                  <ListSubheader sx={{ position: 'sticky', top: '0', zIndex: '1000' }}>Possible matches (scroll for more!):</ListSubheader>
                   {tracks.map((track, i) => {
                     console.log(track);
                     return (
@@ -295,11 +300,16 @@ function App() {
                       </ListItemText>
                     </ListItemButton>
                     ) 
+                    
                   })} 
-                
+                  </ul>
+                  </li>
                 </List>
+                {/* new compoent here! */}
+                
               </Container>
-              <Container disableGutters="true" sx={{width: '30%'}}> song 2??
+              </div>
+              <Container disableGutters="true" sx={{width: '30%'}}> 
                   <Spirograph 
                     track={trackInfo2} 
                     disSize={450} 

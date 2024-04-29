@@ -10,6 +10,10 @@ const Spirograph = ({ track, disSize
     // key, live, loud, mode, speech, tempo, time_sig, valence
   }) => {
 
+    if (!track) {
+      return <div>No track selected</div>;
+    }
+
     let strokeW; //control with something?? could this be useful for time sig?
     let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
     // let size = 500;
@@ -29,7 +33,7 @@ const Spirograph = ({ track, disSize
     let time_sig = track.time_signature; 
     let valence = track.valence;
     
-    const [imgColors, setImgColors] = useState([]);
+    // const [imgColors, setImgColors] = useState([]);
 
       const setup = (p, canvasParentRef) => {
         // let size = 500;

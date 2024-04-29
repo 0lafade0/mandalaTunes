@@ -33,7 +33,7 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
     dancePerc = percentage(trackInfo.danceability);
     layerCount = Math.round(scale(trackInfo.danceability,0,1,3,30));
     sideCount = Math.round(scale(trackInfo.key,-1,11,8,30));
-    strokeWTypeNum = Math.round(scale(trackInfo.time_sig,3,7,1,5));
+    strokeWTypeNum = Math.round(scale(trackInfo.time_signature,3,7,1,5));
     enerPerc = percentage(trackInfo.energy);
     valPerc = percentage(trackInfo.valence);
 
