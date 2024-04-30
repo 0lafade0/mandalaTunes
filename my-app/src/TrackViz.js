@@ -111,6 +111,8 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
     </div>
     <Container disableGutters="true" sx={{ mr: '24px', width: '405px', marginLeft: '10px', padding: '0px'}} className='dataDisplay'>
 
+    {/* ANALYSIS CONCEPT */}
+
     <Accordion  style={{width: '400px', backgroundColor: '#111111', color: 'white'}}>
         <AccordionSummary sx={{color: 'white'}}
             expandIcon={<ArrowDropDownIcon sx={{color: 'white'}} />}

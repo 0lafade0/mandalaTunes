@@ -17,6 +17,7 @@ const CLIENT_ID = "e0b4074fdb834217995fd79096a6138f";
 const CLIENT_SECRET = "6f92a1671c7a437f8d150807ee9ae61b";
 
 function App() {
+
   // single song analysis
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
@@ -66,11 +67,9 @@ function App() {
     console.log("(change) CompareActive is: " + compareActive);
   }
 
-  // Search
+  // SEARCH CONCEPT
   async function search() {
     console.log("Search for " + searchInput);
-    // TEMP, WILL CHANGE SOON
-    // Get request using serch to get artist ID
 
     var returnedTracks = await fetch('https://api.spotify.com/v1/search?q=' + 
       searchInput + '&type=track' + '&market=US&limit=10' , searchParameters)
@@ -83,8 +82,8 @@ function App() {
     //display those tracks to user
 
   }
-  // console.log(tracks);
 
+    // TRACK CONCEPT
   async function getTrackInfo(tr_id) {
 
     var trackStuff = await fetch ('https://api.spotify.com/v1/tracks/' + 
@@ -134,7 +133,6 @@ function App() {
     if (newWhich !== null) {
     setWhichTrack(newWhich);
     console.log("Which Song is it babe: " + whichTrack);
-    console.log("These should be the same? WhichTrack " + whichTrack + ' newWhich: ' + newWhich);
     }    
   };
 
@@ -175,7 +173,7 @@ function App() {
         </Stack>
       </Container>
       <div className='actionArea'>
-      <Container disableGutters="true" sx={{ ml: '0px', position: 'relative',
+      <Container disableGutters="true" sx={{ ml: '24px', position: 'relative',
         overflow: 'auto', maxHeight: '500px', width: '600px',  '& ul': { padding: 0 }}} className='searchResults'>
         <List sx={{width: 'auto'}} subheader={<li />} >
         <li>
@@ -209,6 +207,10 @@ function App() {
       </div>
 
     </div>
+
+        {/* COMPARISON CONCEPT */}
+
+
       <div className={(compareActive) ? '' : 'hideView'}> 
            <div className='searchNToggle'>
            
