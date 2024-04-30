@@ -2,21 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Sketch from 'react-p5';
 import { prominent } from 'color.js';
 
-// let strokeW; //control with something?? could this be useful for time sig?
-// let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
-
 const Spirograph = ({ track, disSize
-    // ,acoust, dance, duration, energy, instrum,
-    // key, live, loud, mode, speech, tempo, time_sig, valence
+ 
   }) => {
 
     if (!track) {
       return <div>No track selected</div>;
     }
 
-    let strokeW; //control with something?? could this be useful for time sig?
+    let strokeW; 
     let overlap, beziers, sym, layers, alph, strokeYN, ang, a1x, a1y, a2x, a2y, x1, x2, y1, y2, hSize, cush;
-    // let size = 500;
     let size = disSize;
 
     let acoust = track.acousticness; 
@@ -33,20 +28,13 @@ const Spirograph = ({ track, disSize
     let time_sig = track.time_signature; 
     let valence = track.valence;
     
-    // const [imgColors, setImgColors] = useState([]);
-
       const setup = (p, canvasParentRef) => {
-        // let size = 500;
         let canvas = p.createCanvas(size, size).parent(canvasParentRef);
-        //canvas.position(10, 95);
         p.angleMode(p.DEGREES);
-        // p.translate(canvas.width, canvas.height);
         hSize = size / 2;
 
         p.colorMode(p.HSB, 256, 100, 100, 100);
         p.noLoop();
-
-        // console.log("bro what the fuck." + key);
 
       };
 
@@ -74,12 +62,12 @@ const Spirograph = ({ track, disSize
         let bAlph = p.round(p.map(acoust,0,1,100, 35));
         console.log('acoust: '+ acoust);
         console.log('bAlph: '+ bAlph);
-        let vAlph = 0;//p.round(p.map(acoust,0,1,15, 0));
+        let vAlph = 0;
         alph = p.round(p.random(bAlph - vAlph, bAlph + vAlph));
         console.log('alph: ' + alph);
-          beziers = 1; // round using something els, may test
+          beziers = 1; 
   
-          overlap = 1; // round using energy? 1  = more overlap, 0 = less overlap
+          overlap = 1; // 1  = more overlap, 0 = less overlap
        
         for (let j = 0; j < layers; j++) {
           x1 = p.random(hSize * 0.75 - j * cush, hSize * 0.85 - j * cush);

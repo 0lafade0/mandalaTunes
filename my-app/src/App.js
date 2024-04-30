@@ -17,6 +17,7 @@ const CLIENT_ID = "e0b4074fdb834217995fd79096a6138f";
 const CLIENT_SECRET = "6f92a1671c7a437f8d150807ee9ae61b";
 
 function App() {
+  // single song analysis
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [tracks, setTracks] = useState([]);
@@ -25,7 +26,7 @@ function App() {
   const [trackArtist, setTrackArtist] = useState("");
   const [trackImg, setTrackImg] = useState("");
 
-  //for compring songs
+  //for comparing songs
   const [selectedTrack1, setSelectedTrack1] = useState("");
   const [selectedTrack2, setSelectedTrack2] = useState("");
   const [trackInfo1, setTrackInfo1] = useState("");
@@ -58,10 +59,6 @@ function App() {
       'Authorization': 'Bearer ' + accessToken
     }
   }
-
-  // let compareActive = false;
-  let selectingSong1 = true;
-
 
   async function changeView() {
     setCompareActive(prevCompareActive => !prevCompareActive);    
@@ -138,20 +135,15 @@ function App() {
     setWhichTrack(newWhich);
     console.log("Which Song is it babe: " + whichTrack);
     console.log("These should be the same? WhichTrack " + whichTrack + ' newWhich: ' + newWhich);
-    }    //okay right i think it just needs to actually execute the function? this makes sense
-    //please dont fuck up later
+    }    
   };
 
-  console.log("Outside, whichTrack: " + whichTrack);
-  console.log("Probably shouldve done this steo by step, selectingsong1: " + selectingSong1);
 
   return (
     <div className="App">
-      {/* <div className='titleTop'> */}
       <Container disableGutters='true' className='titleTop' sx={{marginTop: '10px', width: '200px', paddingRight:'5px', paddingTop: '5px', paddingBottom: '5px'}}>
       <Typography variant="h5"  align='center'><MusicNoteIcon fontSize='medium' />MandalaTunes{'  '}</Typography>
       </Container>
-      {/* </div> */}
       <Typography variant="subtitle1" color='white'>Take the qualities of your favorite spotify 
       song and turn them into a <Tooltip title="Don't know what this is? Give it a click!">
         <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>
@@ -161,34 +153,31 @@ function App() {
       
       <div className={(compareActive) ? 'hideView' : ''}>
       <Container> 
-      {/* We keep this as a bootstrap thing i dont wanna have to figure this out */}
       <Stack direction="row" spacing={2}>
         <InputGroup className="mb-3" size="lg">
           <FormControl className='searchBar'
             placeholder="Search for Song"
             type="input"
-            // style={{backgroundColor: '#242424'}}
             onKeyPress={event => {
               if (event.key == "Enter") {
                 search();
               }
             }}
             onChange={event => setSearchInput(event.target.value)}
-            // need an edge case for if the user doesn't enter anything
           />
-          <Button onClick={search}>
+          <Button onClick={search} style={{backgroundColor: '#1DB954', borderColor: '#1DB954'}}>
             Search
           </Button>
         </InputGroup>
-        <Button onClick={changeView} style={{width: '200px', height: '48px'}}>
+        <Button onClick={changeView} style={{width: '200px', height: '48px', backgroundColor: '#1DB954', borderColor: '#1DB954'}}>
           Compare Tracks
         </Button>
         </Stack>
       </Container>
       <div className='actionArea'>
       <Container disableGutters="true" sx={{ ml: '0px', position: 'relative',
-        overflow: 'auto', maxHeight: '500px', '& ul': { padding: 0 }}} className='searchResults'>
-        <List sx={{width: '500px'}} subheader={<li />} >
+        overflow: 'auto', maxHeight: '500px', width: '600px',  '& ul': { padding: 0 }}} className='searchResults'>
+        <List sx={{width: 'auto'}} subheader={<li />} >
         <li>
             <ul>
           <ListSubheader sx={{ position: 'sticky', top: '0', zIndex: '1000', backgroundColor: '#2a2a2a', color: 'white' }}>Possible matches (scroll for more!):</ListSubheader>
@@ -196,7 +185,6 @@ function App() {
             console.log(track);
             return (
             <ListItemButton onClick={() => getTrackInfo(track.id)}> 
-            {/* onClick, do a function to take in the curren track */}
               <ListItemAvatar>
                 <Avatar sx={{ width: 56, height: 56 }} alt="Song Album Image" 
                               variant="rounded" src={track.album.images[0].url} />
@@ -236,9 +224,8 @@ function App() {
                     }
                   }}
                   onChange={event => setSearchInput(event.target.value)}
-                  // need an edge case for if the user doesn't enter anything
                 />
-                <Button onClick={search}>
+                <Button onClick={search} style={{backgroundColor: '#1DB954', borderColor: '#1DB954'}}>
                   Search
                 </Button>
               </InputGroup>
@@ -250,16 +237,16 @@ function App() {
                 aria-label="Track Choice">
                 <ToggleButton value="Song 1"
                 sx={{
-                  backgroundColor: '#2A2A2A', // Background color when button is not selected
-                  color: '#ffffff', // Text color when button is not selected
+                  backgroundColor: '#2A2A2A', // not selected
+                  color: '8b8b8b', 
                   '&:hover': {
-                    backgroundColor: '#64b5f6', // Background color on hover
+                    backgroundColor: '#1DB954',
                   },
-                  '&.Mui-selected': {
-                      backgroundColor: '#F6F6F6', // Background color when button is selected
-                      color: '#000000', // Text color when button is selected
+                  '&.Mui-selected': { // selected
+                      backgroundColor: '#F6F6F6', 
+                      color: '#000000', 
                       '&:hover': {
-                        backgroundColor: '#64b5f6', // Background color on hover
+                        backgroundColor: '#1DB954', 
                       },
                   },
                 }}
@@ -268,23 +255,23 @@ function App() {
                 <ToggleButton value="Song 2"
                 
                 sx={{
-                  backgroundColor: '#2A2A2A', // Background color when button is not selected
-                  color: '#ffffff', // Text color when button is not selected
+                  backgroundColor: '#2A2A2A', // not selected
+                  color: '8b8b8b', 
                   '&:hover': {
-                    backgroundColor: '#64b5f6', // Background color on hover
+                    backgroundColor: '#1DB954', 
                   },
-                  '&.Mui-selected': {
-                      backgroundColor: '#F6F6F6', // Background color when button is selected
-                      color: '#000000', // Text color when button is selected
+                  '&.Mui-selected': { // selected
+                      backgroundColor: '#F6F6F6', 
+                      color: '#000000', 
                       '&:hover': {
-                        backgroundColor: '#64b5f6', // Background color on hover
+                        backgroundColor: '#1DB954', 
                       },
                   },
                 }}
                 
                 >Song 2</ToggleButton>
               </ToggleButtonGroup>
-              <Button onClick={changeView} style={{width: '200px', height: '48px', margin: 0}}>
+              <Button onClick={changeView} style={{width: '200px', height: '48px', margin: 0, backgroundColor: '#1DB954', borderColor: '#1DB954'}}>
                 Single Analysis
               </Button>
               </Stack>
@@ -319,7 +306,6 @@ function App() {
 
               <Container disableGutters="true" sx={{ ml: '24px',mr: '24px', position: 'realtive', width: '500px',
                 overflow: 'auto', maxHeight: '500px', marginTop: '20px', '& ul': { padding: 0 }}} className='searchResults'>
-                   {/* <Container sx={{marginTop: '5px', marginBottom: '5px', position: 'sticky'}}>Possible matches (scroll for more!):</Container> */}
                 <List sx={{width: '500px'}}  subheader={<li />}>
                   <li>
                     <ul>
@@ -328,7 +314,6 @@ function App() {
                     console.log(track);
                     return (
                     <ListItemButton onClick={() => getTrackInfo(track.id)}> 
-                    {/* onClick, do a function to take in the curren track */}
                       <ListItemAvatar>
                         <Avatar sx={{ width: 56, height: 56 }} alt="Song Album Image" 
                                       variant="rounded" src={track.album.images[0].url} />
@@ -346,7 +331,6 @@ function App() {
                   </ul>
                   </li>
                 </List>
-                {/* new compoent here! */}
                 
               </Container>
               </div>

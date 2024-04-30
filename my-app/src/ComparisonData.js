@@ -15,8 +15,6 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         compDance, compLayers, compAcoust, compEnergy, compVal, compKey, 
         compSides, compStroke, compTime, compMode1, compMode2;
 
-        //for comp mode, just like vs unlike
-
     function scale (number, inMin, inMax, outMin, outMax) {
         return (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     }
@@ -103,7 +101,7 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
             keyType2 = "Spotify doesn't know :(";
         }
 
-    // a coup!!! sticks
+    // a coup!!! sticks (acoustics)
     if (acoustPerc1 > acoustPerc2) {
         compAcoust = 'more';
     } else if (acoustPerc1 == acoustPerc2) {
@@ -112,7 +110,7 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         compAcoust = 'less';
     }
 
-    //do the dance stick the beat
+    //do the dance stick the beat (danceability)
     if (dancePerc1 > dancePerc2) {
         compDance = 'more';
     } else if (dancePerc1 == dancePerc2) {
@@ -121,7 +119,7 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         compDance = 'less';
     }
 
-    //nrg. betwreen you and me
+    //nrg. betwreen you and me (energy)
     if (enerPerc1 > enerPerc2) {
         compEnergy = 'more';
     } else if (enerPerc1 == enerPerc2) {
@@ -130,7 +128,7 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         compEnergy = 'less';
     }
 
-    //fuck um. valorant or something
+    //um. valorant or something (valence)
     if (valPerc1 > valPerc2) {
         compVal = 'more';
     } else if (valPerc1 == valPerc2) {
@@ -139,7 +137,7 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         compVal = 'less';
     }
 
-    //key
+    //i dont have a joke for this one sorry (key)
     if (trackInfo1.key > trackInfo2.key) {
         compKey = 'a higher';
     } else if (trackInfo1.key == trackInfo2.key) {
@@ -148,7 +146,7 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         compKey = 'a lower';
     }
 
-    //layers
+    // avicii voice: levels (layers)
     if (layerCount1 > layerCount2) {
         compLayers = 'more';
     } else if (layerCount1 == layerCount2) {
@@ -177,7 +175,7 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         compStroke = 'a thinner';
     }
 
-    // time sigs all wounds
+    // time sigs all wounds (time signature)
     if (trackInfo1.time_signature > trackInfo2.time_signature) {
         compTime= "a 'higher'";
     } else if (trackInfo1.time_signature == trackInfo2.time_signature) {
@@ -186,13 +184,12 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
         compTime = "a 'lower'";
     }
 
-    // apple pie a la mode
+    // apple pie a la (mode)
     if (trackInfo1.mode == 0) {
         compMode1 = 'a minor';
     } else if (trackInfo1.mode == 1) {
         compMode1 = 'a major';
     }
-
     if (trackInfo1.mode == trackInfo2.mode) {
         compMode2 = 'just like';
     } else {
@@ -214,12 +211,10 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
             <ul className='dataList'>
                 <li> {compMode1} mode {compMode2} {song2name} <Typography display='inline' variant='overline'><span className='aspect'>stroke visibility</span></Typography>  </li>
                 <li> {compTime} time signature ({trackInfo1.time_signature}/4 vs. {trackInfo2.time_signature}/4) <Typography display='inline' variant='overline'><span className='aspect'>stroke weight</span></Typography> </li>
-                {/* tooltip about the time sig equaling stroke */}
                 <li> {compKey} key ({keyType1} vs. {keyType2}) <Typography display='inline' variant='overline'><span className='aspect'>sides</span></Typography> </li> 
                 <li> {compSides} <Tooltip title="Think of it like a wheel. The number of spokes the wheel has is what this number visualizes!">
                         <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>'sides'</span>
                     </Tooltip> ({sideCount1} vs. {sideCount2}) <Typography display='inline' variant='overline'><span className='feature'>key</span></Typography> </li>
-                {/* badge type neat for quality instead of aspect */}
                 <li> {compLayers} layers ({layerCount1} vs. {layerCount2}) <Typography display='inline' variant='overline'><span className='feature'>danceability</span></Typography></li>
                 
                 <li> {compDance} <Tooltip title="How suitable a track is for dancing based on a 
@@ -228,7 +223,6 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
                         <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>danceability</span>
                     </Tooltip> ({dancePerc1}% vs. {dancePerc2}%) <Typography display='inline' variant='overline'><span className='aspect'>layers</span></Typography> 
                     <Typography display='inline' variant='overline'><span className='aspect' style={{marginLeft: '5px'}}>hue</span></Typography> </li>
-                    {/* turn bracket info into a badge type beat */}
                 <li> {compEnergy} <Tooltip title="Represents a perceptual measure of intensity and activity. 
                                     Typically, energetic tracks feel fast, loud, and noisy.">
                         <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>energy</span>
@@ -240,7 +234,6 @@ const ComparisonData = ({trackObj1, trackInfo1, trackObj2, trackInfo2}) => {
                 <li> {compAcoust} <Tooltip title="A confidence measure of whether the track is acoustic. The higher the acousticness, the higher the translucency.">
                         <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}>acousticness</span>
                     </Tooltip> ({acoustPerc1}% vs. {acoustPerc2}%) <Typography display='inline' variant='overline'><span className='aspect'>translucency</span></Typography> </li>
-                {/* yeah we should stilll tool tip the spotify api shit */}
             </ul>
           </Typography>
           <Typography align='right' sx={{marginTop: 0, paddingTop: 0}}><b>than {song2name}.</b></Typography>

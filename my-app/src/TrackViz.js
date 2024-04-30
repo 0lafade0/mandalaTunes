@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import './TrackViz.css';
 import { Card, //Accordion 
             } from 'react-bootstrap';
@@ -12,11 +12,12 @@ import TrackLabel from './TrackLabel';
 const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
 
     if (!trackObj) {
-        return <div>No track selected</div>;
+        return <div style={{color: 'white'}}>No track selected</div>;
     }
 
     console.log(trackObj.artists);
     console.log("THIS IS THE SONG'S KEY." + trackInfo.key);
+    
 
     function scale (number, inMin, inMax, outMin, outMax) {
         return (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
@@ -84,7 +85,7 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
         <Container disableGutters="true" >
             <Spirograph 
                 track={trackInfo}
-                //why cant i get rid of you. bitch
+                //loadbearing useless props
                 disSize={500}
                 acoust={trackInfo.acousticness} 
                 dance={trackInfo.danceability} 
@@ -109,16 +110,8 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
        </Container>
     </div>
     <Container disableGutters="true" sx={{ mr: '24px', width: '405px', marginLeft: '10px', padding: '0px'}} className='dataDisplay'>
-    {/* <Card>
-    <Card.Body>
-      <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-    </Card.Body>
-    </Card> */}
-    <Accordion style={{width: '400px', backgroundColor: '#111111', color: 'white'}}>
+
+    <Accordion  style={{width: '400px', backgroundColor: '#111111', color: 'white'}}>
         <AccordionSummary sx={{color: 'white'}}
             expandIcon={<ArrowDropDownIcon sx={{color: 'white'}} />}
             aria-controls="panel1-content"
@@ -135,9 +128,6 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
                                     while minor scales/chords usually sound more somber or sad.">
                         <span style={{ textDecoration: 'underline', textDecorationStyle:'dotted', cursor: 'pointer' }}> {modeType}</span>
                     </Tooltip>, so it has {strokeType} </li>
-                {/* {trackInfo.mode == 1 ? <p>is in {timeType}/4, so the stroke is {strokeWType}px thick. </p> : <></>} */}
-                {/* maybe we just plain text the stroke weight? i dont think people care to much here :/, 
-                like stroke weight, if there's a stroke, is based on time signature, the higher the time sig the thicker the stroke  */}
                 <li> is in {trackInfo.time_signature}/4, which correlates to stroke thickness (if major). </li>
                 <li> is in the key of {keyType}, so it has {sideCount} {' '}
                     <Tooltip title="Think of it like a wheel. The number of spokes the wheel has is what this number visualizes!">
@@ -204,7 +194,7 @@ const TrackViz = ({trackObj, trackInfo, trackArtist, trackImg}) => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-                the scale for each quality is in [brackets] <br />
+                
                 Acousticness: {trackInfo.acousticness} <br />
                 Danceability: {trackInfo.danceability} <br />
                 Duration_ms: {trackInfo.duration_ms} <br />
