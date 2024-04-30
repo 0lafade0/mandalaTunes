@@ -1,4 +1,4 @@
-# CS178 Computation Project: ManndalaTunes
+# CS178 Computation Project: MandalaTunes
 
 ## Sources
 
